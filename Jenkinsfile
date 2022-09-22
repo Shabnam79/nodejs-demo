@@ -1,18 +1,12 @@
 pipeline {
     agent any 
     environment {
-    DOCKERHUB_CREDENTIALS = credentials('dokcer-hub1')
+    DOCKERHUB_CREDENTIALS = credentials('docker-hub1')
     }
     stages { 
-        stage('SCM Checkout') {
-            steps{
-            git 'https://github.com/ravdy/nodejs-demo.git'
-            }
-        }
-
         stage('Build docker image') {
             steps {  
-                sh 'docker build -t valaxy/nodeapp:$BUILD_NUMBER .'
+                sh 'docker build -t svs75/nodeapp:$BUILD_NUMBER .'
             }
         }
         stage('login to dockerhub') {
@@ -22,7 +16,7 @@ pipeline {
         }
         stage('push image') {
             steps{
-                sh 'docker push valaxy/nodeapp:$BUILD_NUMBER'
+                sh 'docker push svs75/nodeapp:$BUILD_NUMBER'
             }
         }
 }
